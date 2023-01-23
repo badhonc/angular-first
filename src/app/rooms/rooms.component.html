@@ -1,0 +1,38 @@
+<h2>Welcome to {{hotelName}}</h2>
+<h3>Nothing matters</h3>
+<div [hidden]="hideRooms">
+    Number of rooms:
+    <div [innerText]="numOfRooms"></div>
+</div>
+<p>Booked Rooms count : {{rooms.bookedRooms}}</p>
+<p>Available Rooms count : {{rooms.availableRooms}}</p>
+<p>Total Rooms count : {{rooms.totalRooms}}</p>
+{{ rooms.availableRooms>0 ?rooms.availableRooms: "No rooms" }}
+<div *ngIf="rooms.availableRooms>0">
+    <ul>
+        <li>room 1</li>
+        <li>room 2</li>
+    </ul>
+</div>
+<br>
+<button (click)="toggle()">Toggle</button>
+<div>
+    <table>
+        <tr>
+            <th>Roomtype</th>
+            <th>Amenities</th>
+            <th>Price</th>
+            <th>Photos</th>
+            <th>Check-in Time</th>
+            <th>Check-out Time</th>
+        </tr>
+        <tr *ngFor="let r of roomList">
+            <td>{{r.roomType}}</td>
+            <td>{{r.amenities}</td>
+            <td>{{r.price}}</td>
+            <td>{{r.photos}}</td>
+            <td>{{r.checkInTime}}</td>
+            <td>{{r.checkOutTime}}</td>
+        </tr>
+    </table>
+</div>
