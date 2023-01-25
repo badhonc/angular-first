@@ -2,7 +2,7 @@
 <h3>Nothing matters</h3>
 <div [hidden]="hideRooms">
     Number of rooms:
-    <div [innerText]="numOfRooms"></div>
+    <div [ngStyle]="{'color':rooms.availableRooms?'green':'red'}" [innerText]="numOfRooms"></div>
 </div>
 <p>Booked Rooms count : {{rooms.bookedRooms}}</p>
 <p>Available Rooms count : {{rooms.availableRooms}}</p>
@@ -17,22 +17,31 @@
 <br>
 <button (click)="toggle()">Toggle</button>
 <div>
-    <table>
-        <tr>
-            <th>Roomtype</th>
-            <th>Amenities</th>
-            <th>Price</th>
-            <th>Photos</th>
-            <th>Check-in Time</th>
-            <th>Check-out Time</th>
-        </tr>
-        <tr *ngFor="let r of roomList">
-            <td>{{r.roomType}}</td>
-            <td>{{r.amenities}</td>
-            <td>{{r.price}}</td>
-            <td>{{r.photos}}</td>
-            <td>{{r.checkInTime}}</td>
-            <td>{{r.checkOutTime}}</td>
-        </tr>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Index</th>
+                <th>Even/Odd</th>
+                <th>Roomtype</th>
+                <th>Amenities</th>
+                <th>Price</th>
+                <th>Check-in Time</th>
+                <th>Check-out Time</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr [ngClass]="e? 'even' : 'odd'"
+                *ngFor="let r of roomList | slice: 0:3; let e =even; let o = odd; let i = index">
+                <td>{{i}}</td>
+                <td>{{e?"Even":"Odd"}}</td>
+                <td>{{r.roomType}}</td>
+                <td>{{r.amenities | titlecase}}</td>
+                <td>{{r.price | currency :'BDT '}}</td>
+                <td>{{r.checkInTime | date: 'dd/MM/yyyy'}}</td>
+                <td>{{r.checkOutTime | date : 'dd/MM/yyyy'}}</td>
+                <td>{{r.rating | number: '1.0-0'}}</td>
+            </tr>
+        </tbody>
     </table>
 </div>
