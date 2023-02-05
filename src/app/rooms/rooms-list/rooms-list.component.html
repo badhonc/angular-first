@@ -14,7 +14,7 @@
     </thead>
     <tbody>
         <tr [ngClass]="e? 'even' : 'odd'"
-            *ngFor="let room of rooms | slice: 0:3; let e =even; let o = odd; let i = index">
+            *ngFor="let room of rooms; let e =even; let o = odd; let i = index">
             <td>{{i}}</td>
             <td>{{e?"Even":"Odd"}}</td>
             <td>{{room.roomType}}</td>

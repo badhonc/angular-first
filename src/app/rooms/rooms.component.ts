@@ -8,7 +8,9 @@ import { Room, RoomList } from './rooms';
 })
 export class RoomsComponent {
   hotelName = 'an hotel';
+
   numOfRooms = 10;
+
   hideRooms = false;
 
   rooms: Room = {
@@ -22,6 +24,7 @@ export class RoomsComponent {
   ngOnInit(): void {
     this.roomList = [
       {
+        id:1,
         roomType: 'Business',
         amenities: 'Air conditioner, wi-fi',
         price: 500,
@@ -31,6 +34,7 @@ export class RoomsComponent {
         rating: 4.5
       },
       {
+        id: 2,
         roomType: 'Deluxe',
         amenities: 'Air conditioner, wi-fi',
         price: 500,
@@ -40,6 +44,7 @@ export class RoomsComponent {
         rating: 3.5
       },
       {
+        id:3,
         roomType: 'Private Suite',
         amenities: 'Air conditioner, wi-fi',
         price: 500,
@@ -49,6 +54,7 @@ export class RoomsComponent {
         rating: 2.3
       },
       {
+        id:4,
         roomType: 'Gono',
         amenities: 'Air conditioner, wi-fi',
         price: 500,
@@ -62,8 +68,24 @@ export class RoomsComponent {
   toggle() {
     this.hideRooms = !this.hideRooms;
   }
-
+  selectedRoom!: RoomList;
+  
   selectRoom(room:RoomList){
     console.log(room);
+    this.selectedRoom = room;
+  }
+
+  addRoom(){
+    const room:RoomList = {
+      id:5,
+      roomType: 'Average',
+      amenities: 'Air conditioner, wi-fi',
+      price: 500,
+      photos: 'https://unsplash.com/photos/Yrxr3bsPdS0',
+      checkInTime: new Date('23-Jan-2023'),
+      checkOutTime: new Date('24-Jan-2023'),
+      rating: 1.3
+    }
+    this.roomList.push(room);
   }
 }
