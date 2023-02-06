@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck, ViewChild } from '@angular/core';
+import { HeaderComponent } from '../header/header.component';
 import { Room, RoomList } from './rooms';
 
 @Component({
@@ -6,22 +7,32 @@ import { Room, RoomList } from './rooms';
   templateUrl: './rooms.component.html',
   styleUrls: ['./rooms.component.scss']
 })
-export class RoomsComponent {
+export class RoomsComponent implements DoCheck {
+
   hotelName = 'an hotel';
 
   numOfRooms = 10;
 
   hideRooms = false;
 
+  ngDoCheck(): void {
+    console.log('do check is called');
+  }
   rooms: Room = {
     availableRooms: 5,
     bookedRooms: 5,
     totalRooms: 20,
   };
 
+  title = "Room";
+
   roomList: RoomList[] = [];
 
+  //different componenet communication
+  //@ViewChild(HeaderComponent) headerComponent: HeaderComponent;
+    @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
   ngOnInit(): void {
+    console.log(this.headerComponent);
     this.roomList = [
       {
         id:1,
@@ -67,6 +78,7 @@ export class RoomsComponent {
   }
   toggle() {
     this.hideRooms = !this.hideRooms;
+    this.title = "Rooms Lists"
   }
   selectedRoom!: RoomList;
   
@@ -86,6 +98,11 @@ export class RoomsComponent {
       checkOutTime: new Date('24-Jan-2023'),
       rating: 1.3
     }
-    this.roomList.push(room);
+    //this.roomList.push(room);
+    //spred operator for immutability ...
+    this.roomList = [...this.roomList,room];
+  }
+  removeRoom(){
+    this.roomList.pop();
   }
 }
